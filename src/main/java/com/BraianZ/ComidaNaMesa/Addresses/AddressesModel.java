@@ -43,6 +43,6 @@ public class AddressesModel {
     private String referencePoint;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
     private CustomerModel customer;
 }
