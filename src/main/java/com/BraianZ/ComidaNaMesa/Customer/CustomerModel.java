@@ -45,6 +45,6 @@ public class CustomerModel {
     private List<AddressesModel> addresses;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<OrderModel> Orders;
+    private List<OrderModel> orders;
 
 }

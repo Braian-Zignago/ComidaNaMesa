@@ -1,6 +1,5 @@
 package com.BraianZ.ComidaNaMesa.Store;
 
-import com.BraianZ.ComidaNaMesa.Addresses.AddressesModel;
 import com.BraianZ.ComidaNaMesa.Order.OrderModel;
 import com.BraianZ.ComidaNaMesa.Product.ProductModel;
 import jakarta.persistence.*;
@@ -55,5 +54,5 @@ public class StoreModel {
     private StoreAddress address;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
-    private List<OrderModel> Orders;
+    private List<OrderModel> orders;
 }

@@ -10,7 +10,7 @@ public interface CustomerMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "addresses", ignore = true)
-    @Mapping(target = "Orders", ignore = true)
+    @Mapping(target = "orders", ignore = true)
     CustomerModel forCustumerModel(CustomerRequestDTO customerRequestDTO);
 
     CustomerResponseDTO forCustomerResponseDTO(CustomerModel customerModel);
