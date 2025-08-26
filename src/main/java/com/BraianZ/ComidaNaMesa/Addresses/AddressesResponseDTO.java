@@ -1,5 +1,7 @@
 package com.BraianZ.ComidaNaMesa.Addresses;
 
+import com.BraianZ.ComidaNaMesa.Customer.CustomerModel;
+
 public record AddressesResponseDTO(Long id,
                                    String cep,
                                    String state,
