@@ -9,5 +9,6 @@ public record ProductRequestDTO(String name,
                                 String imgUrl,
                                 Integer quantity,
                                 BigDecimal price,
+                                String isAvailable,
                                 StoreModel store) {
 }

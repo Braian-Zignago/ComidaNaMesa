@@ -10,6 +10,7 @@ public interface DeliveyMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "orders", ignore = true)
+    @Mapping(target = "wallet", ignore = true)
     DeliveryModel forDeliveryModel(DeliveyRequestDTO deliveyRequestDTO);
 
     DeliveyResponseDTO forDeliveryResponseDTO(DeliveryModel deliveryModel);
