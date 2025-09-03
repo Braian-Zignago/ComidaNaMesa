@@ -3,8 +3,11 @@ package com.BraianZ.ComidaNaMesa.Delivery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +44,23 @@ public class DeliveryService {
         }
         deliveryRepository.deleteById(id);
         return deliveyResponseDTO;
+    }
+
+    public DeliveryModel setDeliveryMan(){
+        List<DeliveryModel> deliveryModels = deliveryRepository.findByDeliveryStatus("AVAILABLE");
+        if(deliveryModels.isEmpty()){
+            return null;
+        }
+        Random random = new Random();
+        int index = random.nextInt(deliveryModels.size());
+        return deliveryModels.get(index);
+    }
+
+    public LocalTime setDeliveryTime(){
+        Random random = new Random();
+        int min = 20;
+        int max = 60;
+        int randomMinutes = random.nextInt(max - min + 1) + min;
+        return LocalTime.now().plusMinutes(randomMinutes);
     }
 }

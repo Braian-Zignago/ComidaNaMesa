@@ -2,6 +2,7 @@ package com.BraianZ.ComidaNaMesa.Customer;
 
 import com.BraianZ.ComidaNaMesa.Addresses.AddressesModel;
 import com.BraianZ.ComidaNaMesa.Order.OrderModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,12 +40,15 @@ public class CustomerModel {
     @Column(length = 500, name = "img_url")
     private String imgUrl;
 
+    @JsonIgnore
     private BigDecimal wallet;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<AddressesModel> addresses;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<OrderModel> orders;
 
 }

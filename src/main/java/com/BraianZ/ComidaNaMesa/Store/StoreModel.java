@@ -2,6 +2,7 @@ package com.BraianZ.ComidaNaMesa.Store;
 
 import com.BraianZ.ComidaNaMesa.Order.OrderModel;
 import com.BraianZ.ComidaNaMesa.Product.ProductModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,9 +49,11 @@ public class StoreModel {
     private BigDecimal wallet;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ProductModel> products;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<OrderModel> orders;
 
     @Column(length = 10, nullable = false)

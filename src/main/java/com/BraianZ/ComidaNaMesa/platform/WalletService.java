@@ -3,6 +3,8 @@ package com.BraianZ.ComidaNaMesa.platform;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 @RequiredArgsConstructor
 public class WalletService {
@@ -36,6 +38,15 @@ public class WalletService {
         }
         walletRespository.deleteById(id);
         return walletResponseDTO;
+    }
+
+    public BigDecimal calcTaxPlataform(BigDecimal totalPriceProducts){
+        BigDecimal taxRate = new BigDecimal("0.10"); // 10% tax
+        return totalPriceProducts.multiply(taxRate);
+    }
+
+    public WalletModel sendWallet(){
+        return walletRespository.findAll().get(0);
     }
 
 }
