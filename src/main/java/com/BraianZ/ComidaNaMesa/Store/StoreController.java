@@ -56,4 +56,13 @@ public class StoreController {
         }
         return ResponseEntity.ok("Store: " + storeResponseDTO.name() + " with id: " + id + " was eliminated");
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateById(@RequestBody StoreRequestDTO storeRequestDTO, @RequestParam Long id) {
+        StoreResponseDTO storeResponseDTO = storeService.updateById(storeRequestDTO, id);
+        if (storeResponseDTO == null) {
+            return ResponseEntity.status(404).body("It was not possible to update store with id: " + id + " not found");
+        }
+        return ResponseEntity.ok(storeResponseDTO);
+    }
 }

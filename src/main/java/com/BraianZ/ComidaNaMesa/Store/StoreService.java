@@ -13,6 +13,7 @@ public class StoreService {
 
     private final StoreMapper storeMapper;
     private final StoreRepository storeRepository;
+    private final StoreUpdate storeUpdate;
 
     public StoreResponseDTO register(StoreRequestDTO storeRequestDTO) {
         StoreModel storeModel = storeMapper.forStoreModel(storeRequestDTO);
@@ -42,5 +43,14 @@ public class StoreService {
         }
         storeRepository.deleteById(id);
         return storeResponseDTO;
+    }
+
+    public StoreResponseDTO updateById(StoreRequestDTO storeRequestDTO, Long id){
+        StoreModel storeModel = storeRepository.findById(id).orElse(null);
+        if(storeModel == null){
+            return null;
+        }
+        storeUpdate.updateStore(storeRequestDTO, storeModel);
+        return storeMapper.forStoreResponseDTO(storeRepository.save(storeModel));
     }
 }
