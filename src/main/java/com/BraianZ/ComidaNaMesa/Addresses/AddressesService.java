@@ -14,6 +14,7 @@ public class AddressesService {
 
     private final AddressesRepository addressesRepository;
     private final AddressesMapper addressesMapper;
+    private final AddressesUpdate addressesUpdate;
 
     public AddressesResponseDTO register(AddressesRequestDTO addressesRequestDTO){
         AddressesModel addressesModel = addressesMapper.forAddressesModel(addressesRequestDTO);
@@ -44,5 +45,14 @@ public class AddressesService {
         }
         addressesRepository.deleteById(id);
         return addressesResponseDTO;
+    }
+
+    public AddressesResponseDTO updateById(AddressesRequestDTO addressesRequestDTO, Long id) {
+        AddressesModel addressesModel = addressesRepository.findById(id).orElse(null);
+        if (addressesModel == null) {
+            return null;
+        }
+        addressesUpdate.updateAddresses(addressesRequestDTO, addressesModel);
+        return addressesMapper.forAddressesResponseDTO(addressesRepository.save(addressesModel));
     }
 }

@@ -57,5 +57,12 @@ public class AddressesController {
         return ResponseEntity.ok("Address: " + addressesResponseDTO.street() + " with id:" + id + " was eliminated ");
     }
 
-
+    @PutMapping("/update")
+    public ResponseEntity<?> updateById(@RequestBody AddressesRequestDTO addressesRequestDTO, @RequestParam Long id) {
+        AddressesResponseDTO addressesResponseDTO = addressesService.updateById(addressesRequestDTO, id);
+        if (addressesResponseDTO == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("It was not possible to update Address with id: " + id + " not found");
+        }
+        return ResponseEntity.ok(addressesResponseDTO);
+    }
 }
