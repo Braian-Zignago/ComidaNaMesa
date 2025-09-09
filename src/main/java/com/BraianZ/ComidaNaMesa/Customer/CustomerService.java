@@ -46,7 +46,10 @@ public class CustomerService {
     }
 
     public CustomerResponseDTO updateById(CustomerRequestDTO customerRequestDTO, Long id) {
-        CustomerModel customerModel = customerRepository.findById(id).orElseThrow();
+        CustomerModel customerModel = customerRepository.findById(id).orElse(null);
+        if (customerModel == null) {
+            return null;
+        }
         customerUpdate.updateCustomer(customerRequestDTO, customerModel);
         return customerMapper.forCustomerResponseDTO(customerRepository.save(customerModel));
     }
