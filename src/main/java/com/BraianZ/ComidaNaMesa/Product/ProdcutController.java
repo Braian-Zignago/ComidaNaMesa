@@ -53,4 +53,13 @@ public class ProdcutController {
         }
         return ResponseEntity.ok("Product: " + productResponseDTO.name() + " with id: " + id + " was eliminated");
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateById(@RequestBody ProductRequestDTO productRequestDTO, @RequestParam Long id) {
+        ProductResponseDTO productResponseDTO = productService.updateById(productRequestDTO, id);
+        if (productResponseDTO == null) {
+            return ResponseEntity.status(404).body("It was not possible to update product with id: " + id + " not found");
+        }
+        return ResponseEntity.ok(productResponseDTO);
+    }
 }

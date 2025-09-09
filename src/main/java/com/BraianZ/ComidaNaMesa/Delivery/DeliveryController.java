@@ -1,6 +1,7 @@
 package com.BraianZ.ComidaNaMesa.Delivery;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -53,5 +54,14 @@ public class DeliveryController {
             return ResponseEntity.status(404).body("It was not possible to eliminate delivery with id: " + id + " not found");
         }
         return ResponseEntity.ok("Delivery: " + deliveyResponseDTO.name() + " with id: " + id + " was eliminated");
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateById(@RequestBody DeliveyRequestDTO deliveyRequestDTO, @RequestParam Long id) {
+        DeliveyResponseDTO deliveyResponseDTO = deliveryService.updateById(deliveyRequestDTO, id);
+        if (deliveyResponseDTO == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("It was not possible to update delivery with id: " + id + " not found");
+        }
+        return ResponseEntity.ok(deliveyResponseDTO);
     }
 }

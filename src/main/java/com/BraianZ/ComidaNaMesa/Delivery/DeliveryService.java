@@ -15,6 +15,7 @@ public class DeliveryService {
 
     private final DeliveyMapper deliveryMapper;
     private final DeliveryRespository deliveryRepository;
+    private final DeliveryUpdate deliveryUpdate;
 
     public DeliveyResponseDTO register(DeliveyRequestDTO deliveyRequestDTO) {
         DeliveryModel deliveryModel = deliveryMapper.forDeliveryModel(deliveyRequestDTO);
@@ -44,6 +45,15 @@ public class DeliveryService {
         }
         deliveryRepository.deleteById(id);
         return deliveyResponseDTO;
+    }
+
+    public DeliveyResponseDTO updateById(DeliveyRequestDTO deliveyRequestDTO, Long id) {
+        DeliveryModel deliveryModel = deliveryRepository.findById(id).orElse(null);
+        if (deliveryModel == null) {
+            return null;
+        }
+        deliveryUpdate.updateDelivery(deliveyRequestDTO, deliveryModel);
+        return deliveryMapper.forDeliveryResponseDTO(deliveryRepository.save(deliveryModel));
     }
 
     public DeliveryModel setDeliveryMan(){

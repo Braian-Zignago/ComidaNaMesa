@@ -12,6 +12,7 @@ public class ProductService {
 
     private final ProductMapper productMapper;
     private final ProductRepository productRepository;
+    private final ProductUpdate productUpdate;
 
     public ProductResponseDTO register(ProductRequestDTO productRequestDTO) {
         ProductModel productModel = productMapper.forProductModel(productRequestDTO);
@@ -42,6 +43,15 @@ public class ProductService {
         }
         productRepository.deleteById(id);
         return productResponseDTO;
+    }
+
+    public ProductResponseDTO updateById(ProductRequestDTO productRequestDTO, Long id) {
+        ProductModel productModel = productRepository.findById(id).orElse(null);
+        if (productModel == null) {
+            return null;
+        }
+        productUpdate.updateProduct(productRequestDTO, productModel);
+        return productMapper.forProductResponseDTO(productRepository.save(productModel));
     }
 
     public BigDecimal calcTotalPrice(List<ProductModel> products) {
