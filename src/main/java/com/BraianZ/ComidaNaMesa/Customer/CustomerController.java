@@ -58,4 +58,13 @@ public class CustomerController {
         }
         return ResponseEntity.ok("Customer: " + customerResponseDTO.name() + " with id: " + id + "was eliminated");
     }
+
+    @PutMapping
+    public ResponseEntity<?> updateById(@RequestBody CustomerRequestDTO customerRequestDTO, @RequestParam("id") Long id) {
+        CustomerResponseDTO customerResponseDTO = customerService.updateById(customerRequestDTO, id);
+        if (customerResponseDTO == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("It was not possible to update customer with id: " + id + "not found");
+        }
+        return ResponseEntity.ok(customerResponseDTO);
+    }
 }

@@ -12,6 +12,7 @@ public class CustomerService {
 
     private final CustomerMapper customerMapper;
     private final CustomerRepository customerRepository;
+    private final CustomerUpdate customerUpdate;
 
     public CustomerResponseDTO register(CustomerRequestDTO customerRequestDTO) {
         CustomerModel customerModel = customerMapper.forCustumerModel(customerRequestDTO);
@@ -42,5 +43,11 @@ public class CustomerService {
         }
         customerRepository.deleteById(id);
         return customerResponseDTO;
+    }
+
+    public CustomerResponseDTO updateById(CustomerRequestDTO customerRequestDTO, Long id) {
+        CustomerModel customerModel = customerRepository.findById(id).orElseThrow();
+        customerUpdate.updateCustomer(customerRequestDTO, customerModel);
+        return customerMapper.forCustomerResponseDTO(customerRepository.save(customerModel));
     }
 }
