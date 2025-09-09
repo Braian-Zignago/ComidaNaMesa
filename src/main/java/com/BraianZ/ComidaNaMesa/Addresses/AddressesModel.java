@@ -44,5 +44,6 @@ public class AddressesModel {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
+    @JsonIgnore
     private CustomerModel customer;
 }

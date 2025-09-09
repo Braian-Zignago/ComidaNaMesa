@@ -1,8 +1,8 @@
 package com.BraianZ.ComidaNaMesa.Store;
 
-import com.BraianZ.ComidaNaMesa.Addresses.AddressesModel;
 import com.BraianZ.ComidaNaMesa.Order.OrderModel;
 import com.BraianZ.ComidaNaMesa.Product.ProductModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,11 +49,35 @@ public class StoreModel {
     private BigDecimal wallet;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ProductModel> products;
 
-    @Embedded
-    private StoreAddress address;
-
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
-    private List<OrderModel> Orders;
+    @JsonIgnore
+    private List<OrderModel> orders;
+
+    @Column(length = 10, nullable = false)
+    private String cep;
+
+    @Column(length = 50, nullable = false)
+    private String state;
+
+    @Column(length = 50, nullable = false)
+    private String city;
+
+    @Column(length = 100, nullable = false)
+    private String neighborhood;
+
+    @Column(length = 100, nullable = false)
+    private String street;
+
+    @Column(nullable = false)
+    private Long number;
+
+    @Column(length = 50)
+    private String complement;
+
+    @Column(length = 100, name = "reference_point")
+    private String referencePoint;
+
 }

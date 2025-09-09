@@ -1,5 +1,7 @@
 package com.BraianZ.ComidaNaMesa.Store;
 
+import com.BraianZ.ComidaNaMesa.Customer.CustomerModel;
+
 import java.math.BigDecimal;
 
 public record StoreRequestDTO(String name,
@@ -11,5 +13,13 @@ public record StoreRequestDTO(String name,
                               String specialty,
                               Integer evaluaton,
                               BigDecimal wallet,
-                              StoreAddress address) {
+                              String cep,
+                              String state,
+                              String city,
+                              String neighborhood,
+                              String street,
+                              Long number,
+                              String complement,
+                              String referencePoint
+                              ) {
 }

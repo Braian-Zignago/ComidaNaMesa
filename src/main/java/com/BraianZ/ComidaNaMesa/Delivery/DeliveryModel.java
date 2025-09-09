@@ -1,6 +1,7 @@
 package com.BraianZ.ComidaNaMesa.Delivery;
 
 import com.BraianZ.ComidaNaMesa.Order.OrderModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,11 +49,12 @@ public class DeliveryModel {
     private BigDecimal wallet;
 
     @Column(name = "delivery_fee")
-    private Double deliveryFee;
+    private BigDecimal deliveryFee;
 
     @Column(length = 20, nullable = false)
     private String deliveryStatus; // "OCCUPIED", "AVAILABLE", "OFFLINE"
 
     @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<OrderModel> orders;
 }

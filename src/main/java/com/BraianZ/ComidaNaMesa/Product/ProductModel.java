@@ -1,6 +1,7 @@
 package com.BraianZ.ComidaNaMesa.Product;
 
 import com.BraianZ.ComidaNaMesa.Store.StoreModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,8 +35,9 @@ public class ProductModel {
     @Column(name = "is_available", length = 3, nullable = false)
     private String isAvailable; // "YES", "NO"
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "store_id")
+    @JsonIgnore
     private StoreModel store;
 
 

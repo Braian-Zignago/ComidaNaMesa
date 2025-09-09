@@ -10,7 +10,7 @@ public interface StoreMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "products", ignore = true)
-    @Mapping(target = "Orders", ignore = true)
+    @Mapping(target = "orders", ignore = true)
     StoreModel forStoreModel(StoreRequestDTO storeRequestDTO);
 
     StoreResponseDTO forStoreResponseDTO(StoreModel storeModel);
