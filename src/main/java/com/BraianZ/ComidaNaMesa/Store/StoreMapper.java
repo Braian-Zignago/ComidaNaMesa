@@ -13,6 +13,8 @@ public interface StoreMapper {
     @Mapping(target = "orders", ignore = true)
     StoreModel forStoreModel(StoreRequestDTO storeRequestDTO);
 
+    StoreModel forStoreModel(StoreResponseDTO storeResponseDTO);
+
     StoreResponseDTO forStoreResponseDTO(StoreModel storeModel);
 
     List<StoreResponseDTO> forStoreResponseDTOList(List<StoreModel> storeModelList);

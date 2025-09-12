@@ -13,6 +13,8 @@ public interface CustomerMapper {
     @Mapping(target = "orders", ignore = true)
     CustomerModel forCustumerModel(CustomerRequestDTO customerRequestDTO);
 
+    CustomerModel forCustumerModel(CustomerResponseDTO customerResponseDTO);
+
     CustomerResponseDTO forCustomerResponseDTO(CustomerModel customerModel);
 
     List<CustomerResponseDTO> forCustomerResponseDTOList(List<CustomerModel> customerModelList);

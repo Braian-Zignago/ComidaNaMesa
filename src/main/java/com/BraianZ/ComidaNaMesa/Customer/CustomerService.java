@@ -3,6 +3,7 @@ package com.BraianZ.ComidaNaMesa.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +53,10 @@ public class CustomerService {
         }
         customerUpdate.updateCustomer(customerRequestDTO, customerModel);
         return customerMapper.forCustomerResponseDTO(customerRepository.save(customerModel));
+    }
+
+    public void sendWallet(CustomerModel customer, BigDecimal newCustomerWallet) {
+        customer.setWallet(newCustomerWallet);
+        customerRepository.save(customer);
     }
 }

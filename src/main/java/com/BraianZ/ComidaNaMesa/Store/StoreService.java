@@ -4,6 +4,7 @@ import com.BraianZ.ComidaNaMesa.Customer.CustomerModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +53,10 @@ public class StoreService {
         }
         storeUpdate.updateStore(storeRequestDTO, storeModel);
         return storeMapper.forStoreResponseDTO(storeRepository.save(storeModel));
+    }
+
+    public void sendWallet(StoreModel store, BigDecimal newStoreWallet) {
+        store.setWallet(newStoreWallet);
+        storeRepository.save(store);
     }
 }

@@ -11,6 +11,8 @@ public interface ProductMapper {
     @Mapping(target = "id", ignore = true)
     ProductModel forProductModel(ProductRequestDTO productRequestDTO);
 
+    ProductModel forProductModel(ProductResponseDTO productResponseDTO);
+
     ProductResponseDTO forProductResponseDTO(ProductModel productModel);
 
     List<ProductResponseDTO> forProductResponseDTOList(List<ProductModel> productModelList);

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -55,8 +56,14 @@ public class ProductService {
     }
 
     public BigDecimal calcTotalPrice(List<ProductModel> products) {
+        if (products == null || products.isEmpty()) {
+            return BigDecimal.ZERO;
+        }
+
         return products.stream()
+                .filter(Objects::nonNull) // 1. Filtra objetos ProductModel nulos
                 .map(ProductModel::getPrice)
+                .filter(Objects::nonNull) // 2. Filtra precios nulos
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

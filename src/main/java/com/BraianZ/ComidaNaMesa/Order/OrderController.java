@@ -2,31 +2,38 @@ package com.BraianZ.ComidaNaMesa.Order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/order")
 @RequiredArgsConstructor
 public class OrderController {
 
+    private final OrderService orderService;
+
     @GetMapping("/")
     public String welcome() {
         return "Welcome to orders";
     }
 
-    public ResponseEntity<?> createOrder() {
-        return ResponseEntity.ok("Order created");
+    @PostMapping("/create")
+    public ResponseEntity<?> createOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
+        OrderResponseDTO orderResponseDTO = orderService.create(orderRequestDTO);
+        return ResponseEntity.ok(orderResponseDTO);
     }
 
     public ResponseEntity<?> getOrderById() {
         return ResponseEntity.ok("Order by id");
     }
 
-    public ResponseEntity<?> getAllOrders() {
-        return ResponseEntity.ok("All orders");
+    @GetMapping("/get")
+    public ResponseEntity<?> getAll() {
+        List<OrderResponseDTO> orderResponseDTO = orderService.getAll();
+        return ResponseEntity.ok(orderResponseDTO);
     }
+
 
     public ResponseEntity<?> updateOrder() {
         return ResponseEntity.ok("Order updated");
