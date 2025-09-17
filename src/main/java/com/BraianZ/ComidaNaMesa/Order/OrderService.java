@@ -47,11 +47,12 @@ public class OrderService {
                 .calcTotalPrice(orderModel.getProducts());
         orderModel.setTaxPlataform(walletService
                 .calcTaxPlataform(totalPriceProducts));
+
         orderModel.setDelivery(deliveryService.setDeliveryMan());
         orderModel.setDeliveryTime(deliveryService.setDeliveryTime());
         orderModel.setTotalPrice(calcTotalOrderPrice(orderModel));
         if (!distributionMoney(orderModel)){
-            throw new RuntimeException("Insufficient funds in customer's wallet.");
+            return null;
         }
         return orderMapper.forOrderResponseDTO(orderRepository.save(orderModel));
     }
@@ -76,11 +77,6 @@ public class OrderService {
             productsReturned.add(productMapper.forProductModel(productService.getById(product.getId())));
         }
         return productsReturned;
-    }
-
-    public List<OrderResponseDTO> getAll(){
-        List<OrderModel> orderModel = orderRepository.findAll();
-        return orderMapper.forOrderResponseDTOList(orderModel);
     }
 
     public BigDecimal calcTotalOrderPrice(OrderModel orderModel){
@@ -120,5 +116,10 @@ public class OrderService {
         orderModel.getDelivery().setWallet(newDeliveryWallet);
         walletService.sendWallet(newPlatformWallet);
         return true;
+    }
+
+    public List<OrderResponseDTO> getAll(){
+        List<OrderModel> orderModel = orderRepository.findAll();
+        return orderMapper.forOrderResponseDTOList(orderModel);
     }
 }
