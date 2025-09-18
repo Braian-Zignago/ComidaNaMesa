@@ -12,7 +12,7 @@ public class WalletService {
     private final WalletRespository walletRespository;
     private final WalletMapper walletMapper;
 
-    public WalletResponseDTO create(WalletRequestDTO walletRequestDTO){
+    public WalletResponseDTO create(WalletRequestDTO walletRequestDTO) {
         WalletModel walletModel = walletMapper.forWalletModel(walletRequestDTO);
         WalletResponseDTO walletResponseDTO = null;
         try {
@@ -23,7 +23,7 @@ public class WalletService {
         return walletResponseDTO;
     }
 
-    public WalletResponseDTO getById(Long id){
+    public WalletResponseDTO getById(Long id) {
         WalletModel walletModel = walletRespository.findById(id).orElse(null);
         if (walletModel == null) {
             return null;
@@ -31,7 +31,7 @@ public class WalletService {
         return walletMapper.forWalletResponseDTO(walletModel);
     }
 
-    public WalletResponseDTO deleteById(Long id){
+    public WalletResponseDTO deleteById(Long id) {
         WalletResponseDTO walletResponseDTO = getById(id);
         if (walletResponseDTO == null) {
             return null;
@@ -40,13 +40,19 @@ public class WalletService {
         return walletResponseDTO;
     }
 
-    public BigDecimal calcTaxPlataform(BigDecimal totalPriceProducts){
+    public BigDecimal calcTaxPlataform(BigDecimal totalPriceProducts) {
         BigDecimal taxRate = new BigDecimal("0.10"); // 10% tax
         return totalPriceProducts.multiply(taxRate);
     }
 
-    public WalletModel sendWallet(){
-        return walletRespository.findAll().get(0);
+    public void sendWallet(BigDecimal newWallet) {
+        WalletModel walletModel = walletRespository.findAll().get(0);
+        walletModel.setTotal(newWallet);
+        walletRespository.save(walletModel);
+
     }
 
+    public WalletModel getWallet() {
+        return walletRespository.findAll().get(0);
+    }
 }

@@ -16,6 +16,8 @@ public interface OrderMapper {
     @Mapping(target = "totalPrice", ignore = true)
     OrderModel forOrderModel(OrderRequestDTO orderRequestDTO);
 
+    OrderModel forOrderModel(OrderResponseDTO orderResponseDTO);
+
     OrderResponseDTO forOrderResponseDTO(OrderModel orderModel);
 
     List<OrderResponseDTO> forOrderResponseDTOList(List<OrderModel> orderModelList);

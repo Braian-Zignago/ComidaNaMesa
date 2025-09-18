@@ -26,11 +26,11 @@ public class OrderModel {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private CustomerModel customer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "store_id", nullable = false)
     private StoreModel store;
 
@@ -42,21 +42,21 @@ public class OrderModel {
     )
     private List<ProductModel> products;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "delivery_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "delivery_id")
     private DeliveryModel delivery;
 
-    @Column(nullable = false, name = "tax_platform")
+    @Column(name = "tax_platform")
     private BigDecimal taxPlataform;
 
-    @Column(nullable = false, name = "delivery_time")
+    @Column(name = "delivery_time")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime deliveryTime;
 
     @Column(nullable = false)
     private String status; // "PENDING", "IN_PROGRESS", "DELIVERED", "CANCELED"
 
-    @Column(nullable = false)
+
     private BigDecimal totalPrice;
 
 }
