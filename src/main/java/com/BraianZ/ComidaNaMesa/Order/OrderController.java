@@ -21,6 +21,9 @@ public class OrderController {
     @PostMapping("/create")
     public ResponseEntity<?> createOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
         OrderResponseDTO orderResponseDTO = orderService.create(orderRequestDTO);
+        if (orderResponseDTO == null) {
+            return ResponseEntity.internalServerError().body("Customers does not have enough balance");
+        }
         return ResponseEntity.ok(orderResponseDTO);
     }
 
@@ -31,6 +34,9 @@ public class OrderController {
     @GetMapping("/get")
     public ResponseEntity<?> getAll() {
         List<OrderResponseDTO> orderResponseDTO = orderService.getAll();
+        if (orderResponseDTO == null) {
+            return ResponseEntity.internalServerError().body("Error getting orders");
+        }
         return ResponseEntity.ok(orderResponseDTO);
     }
 
