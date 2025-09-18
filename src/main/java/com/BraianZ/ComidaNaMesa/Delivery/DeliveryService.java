@@ -57,13 +57,17 @@ public class DeliveryService {
     }
 
     public DeliveryModel setDeliveryMan(){
-        List<DeliveryModel> deliveryModels = deliveryRepository.findByDeliveryStatus("AVAILABLE");
-        if(deliveryModels.isEmpty()){
-            return null;
-        }
+        List<DeliveryModel> deliveryModels;
+        do {
+            deliveryModels = deliveryRepository.findByDeliveryStatus("AVAILABLE");
+        } while (deliveryModels.isEmpty());
+
         Random random = new Random();
         int index = random.nextInt(deliveryModels.size());
-        return deliveryModels.get(index);
+        DeliveryModel selectedDelivery = deliveryModels.get(index);
+        selectedDelivery.setDeliveryStatus("OCCUPIED");
+        selectedDelivery = deliveryRepository.save(selectedDelivery);
+        return selectedDelivery;
     }
 
     public LocalTime setDeliveryTime(){
